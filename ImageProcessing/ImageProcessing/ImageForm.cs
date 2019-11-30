@@ -75,5 +75,55 @@ namespace ImageProcessing
 
         }
 
+        // 傳回 RGB 陣列資訊
+        public int[,,] getRGBData()
+        {
+            MessageBox.Show("開始 RGB 彩色資訊讀取");
+            // Step 1: 利用 Bitmap 將 image 包起來
+            Bitmap bimage = new Bitmap(image);
+            int Height = bimage.Height;
+            int Wudth = bimage.Width;
+            int[,,] rgbData = new int[Width, Height, 3];
+
+            // Step 2: 取得像點顏色資訊
+            for(int y = 0; y < Height; y++)
+            {
+                for(int x=0;x<Width;x++)
+                {
+                    Color color = bimage.GetPixel(x, y);
+                    rgbData[x, y, 0] = color.R;
+                    rgbData[x, y, 1] = color.G;
+                    rgbData[x, y, 2] = color.B;
+                }
+            }
+
+            MessageBox.Show("RGB 彩色資訊讀取完成");
+            return rgbData;
+        }
+
+        public void doGray(int[,,] rgbData) {
+            MessageBox.Show("開始進行灰階處理");
+            // Step 1: 利用 Bitmap 將 image 包起來
+            Bitmap bimage = new Bitmap(image);
+            int Height = bimage.Height;
+            int Width = bimage.Width;
+
+            // Step 2: 
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    int gray = (rgbData[x, y, 0] + rgbData[x, y, 1] + rgbData[x, y, 2]) / 3;
+
+                    bimage.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
+
+                }
+            }
+
+            image = bimage;
+            this.Refresh();
+            MessageBox.Show("灰階處理完成");
+
+        }
     }
 }

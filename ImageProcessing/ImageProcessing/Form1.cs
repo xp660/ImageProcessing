@@ -35,7 +35,11 @@ namespace ImageProcessing
         // 一般處理方式: 灰階化範例
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if(CurrentImage != null)
+            {
+                int[, ,] rgbData = CurrentImage.getRGBData();
+                CurrentImage.doGray(rgbData);
+            }
         }
 
         // 高效率影像處理 --  反轉顏色範例
