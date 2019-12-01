@@ -125,5 +125,52 @@ namespace ImageProcessing
             MessageBox.Show("灰階處理完成");
 
         }
+       
+        public void Invert()
+        {
+            Bitmap bimage = new Bitmap(image);
+            Invert(bimage);
+            image = bimage;
+            this.Refresh();
+        }
+
+        // 高效率反轉圖片 
+        public static bool Invert(Bitmap bimage)
+        {
+            // Step 1: 先鎖住存放圖片的記憶體
+            BitmapData bmData = bimage.LockBits(new Rectangle(0, 0, bimage.Width, bimage.Height),
+                                                ImageLockMode.ReadWrite,
+                                                PixelFormat.Format24bppRgb);
+            int stride = bmData.Stride;
+
+            // Step 2: 取得像點資料的起始位址
+            System.IntPtr Scan0 = bmData.Scan0;
+
+            // 計算每行的像點所佔據的byte 總數
+            int ByteNumber_Width = bimage.Width * 3;
+
+            // 計算每一行後面幾個 Padding bytes
+            int ByteofSkip = stride - ByteNumber_Width;
+
+            // Step 3: 直接利用指標, 更改圖檔的內容
+            int Height = bimage.Height;
+            unsafe
+            {
+                byte* p = (byte*)(void*)Scan0;
+                for(int y = 0; y < Height; y++)
+                {
+                    for(int x = 0; x < ByteNumber_Width; x++)
+                    {
+                        p[0] = (byte)(255 - p[0]); // 彩色資料反轉
+                        ++p;
+                    }
+                    p += ByteofSkip; // 跳過剩下的 Padding bytes
+                }
+            }
+
+            bimage.UnlockBits(bmData);
+            return true;
+        }
+
     }
 }

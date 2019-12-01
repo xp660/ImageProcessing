@@ -45,7 +45,14 @@ namespace ImageProcessing
         // 高效率影像處理 --  反轉顏色範例
         private void button3_Click(object sender, EventArgs e)
         {
-
+            if(CurrentImage != null)
+            {
+                CurrentImage.Invert();
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
+            }
         }
 
         // 高效率影像處理 --  紅色濾鏡範例
