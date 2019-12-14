@@ -102,7 +102,39 @@ namespace ImageProcessing
         // 高效率影像處理範例 --  增加亮度
         private void button7_Click(object sender, EventArgs e)
         {
+            if (CurrentImage != null)
+            {
+                // Step 1: 取出顏色資料
+                int[,,] rgbData = CurrentImage.getRGBData_unsafe();
+                int Width = rgbData.GetLength(0);
+                int Height = rgbData.GetLength(1);
 
+                // Step 2: 增加亮度 30 
+                int g;
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        for (int c = 0; c < 3; c++)
+                        {
+                            g = rgbData[x, y, c];
+                            g += 30;
+                            if (g > 255)
+                            {
+                                g = 255;
+                                rgbData[x, y, c] = g;
+                            }
+                        }
+                    }
+                }
+
+                // Step 3: 將處理後的資料寫回 CurrentImage
+                CurrentImage.setRGBData_unsafe(rgbData);
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
+            }
         }
 
         // ==================================   影像處理公用程式相關   =====================================
