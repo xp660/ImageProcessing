@@ -19,6 +19,7 @@ namespace ImageProcessing
             InitializeComponent();
         }
 
+        // ==================================   使用者介面相關   =====================================
         // Load 按鈕事件處理函式
         private void button1_Click(object sender, EventArgs e)
         {
@@ -39,6 +40,10 @@ namespace ImageProcessing
             {
                 int[, ,] rgbData = CurrentImage.getRGBData();
                 CurrentImage.doGray(rgbData);
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
             }
         }
 
@@ -79,9 +84,47 @@ namespace ImageProcessing
 
         }
 
-       
+        // ==================================   影像處理公用程式相關   =====================================
+        public void ColoFilter(int select)
+        {
+            // Step 1: 取出顏色資料
+            int[,,] rgbData = CurrentImage.getRGBData_unsafe();
+
+            // Step 2: 數位影像處理
+            //  將所有顏色 Channel 資料改成 0, 只留下紅色區域
+            int Width = rgbData.GetLength(0);
+            int Height = rgbData.GetLength(1);
+            int r;
+
+            for(int i = 0; i < Height; i++)
+            {
+                for(int j = 0; j < Width; j++)
+                {
+                    switch (select)
+                    {
+                        case 0: // 執行紅色濾鏡功能
+                            rgbData[x, y, 1] = 0; // Green Channel 改成 0
+                            rgbData[x, y, 2] = 0; // Blue Channel 改成 0
+                            break;
+                        case 1: // 執行綠色 filter 功能
+                            rgbData[x, y, 0] = 0; // Red Channel 改成 0
+                            rgbData[x, y, 2] = 0; // Blue Channel 改成 0
+                            break;
+                        case 2: // 執行藍色濾鏡的功能
+                            rgbData[x, y, 0] = 0; // Red Channel 改成 0
+                            rgbData[x, y, 1] = 0; // Blue Channel 改成 0
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            // Step 3: 將處理後的資料寫回 CurrentImage
+            CurrentImage.setRGBData_unsafe(rgbData);
+        }
+
+
+
     }
-
-
-
 }

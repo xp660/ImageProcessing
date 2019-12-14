@@ -172,5 +172,107 @@ namespace ImageProcessing
             return true;
         }
 
+        //高效率圖形轉換工具 --讀取影像資料
+        public int[,,] getRGBData_unsafe()
+        {
+            Bitmap bimage = new Bitmap(image);
+            return getRGBData(bimage);
+        }
+
+        public static int[,,] getRGBData(Bitmap bimage)
+        {
+            // Step 1: 先鎖住存放圖片的記憶體
+            BitmapData bmData = bimage.LockBits(new Rectangle(0, 0, bimage.Width, bimage.Height),
+                                                ImageLockMode.ReadOnly,
+                                                PixelFormat.Format24bppRgb);
+            int stride = bmData.Stride;
+
+            // Step 2: 取得像點資料的起始位址
+            System.IntPtr Scan0 = bmData.Scan0;
+
+            // 計算每行的像點所佔據的byte 總數
+            int ByteNumber_Width = bimage.Width * 3;
+
+            // 計算每一行後面幾個 Padding bytes
+            int ByteofSkip = stride - ByteNumber_Width;
+
+            // Step 3: 直接利用指標, 更改圖檔的內容
+            int Height = bimage.Height;
+            int Width = bimage.Width;
+            int[,,] rgbData = new int[Width, Height, 3];
+            unsafe
+            {
+                byte* p = (byte*)(void*)Scan0;
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        rgbData[x, y, 2] = p[0]; // B
+                        ++p;
+                        rgbData[x, y, 1] = p[0]; // G
+                        ++p;
+                        rgbData[x, y, 0] = p[0]; // R
+                        ++p;
+                        
+                        
+                    }
+                    p += ByteofSkip; // 跳過剩下的 Padding bytes
+                }
+            }
+
+            bimage.UnlockBits(bmData);
+            return true;
+        }
+
+
+
+        // 高效率圖形轉換工具 -- 由陣列建立新的 Bitmap
+        public void setRGBData_unsafe(int[,,] rgbData)
+        {
+            Bitmap bimage = CreateBitmap(rgbData);
+            image = bimage;
+            this.Refresh();
+        }
+
+        public static Bitmap CreateBitmap(int[,,] rgbData)
+        {
+            int Width = rgbData.Length(0);
+            int Height = rgbData.Length(1);
+            Bitmap bimage = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
+            
+            // Step 1: 先鎖住存放圖片的記憶體
+            BitmapData bmData = bimage.LockBits(new Rectangle(0, 0, Width, Height),
+                                           ImageLockMode.WriteOnly,
+                                           PixelFormat.Format24bppRgb);
+            int stride = bmData.Stride;
+            // Step 2: 取得像點資料的起始位址
+            System.IntPtr Scan0 = bmData.Scan0;
+            // 計算每行的像點所佔據的byte 總數
+            int ByteNumber_Width = bimage.Width * 3;
+            // 計算每一行後面幾個 Padding bytes
+            int ByteOfSkip = stride - ByteNumber_Width;
+
+            // Step 3: 直接利用指標, 把影像資料取出來
+            unsafe
+            {
+                byte* p = (byte*)(void*)Scan0;
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        p[0] = (byte)rgbData[x, y, 2]; // 先放 B
+                        ++p;
+                        p[0] = (byte)rgbData[x, y, 1];  // 再放 G 
+                        ++p;
+                        p[0] = (byte)rgbData[x, y, 0];  // 最後放 R  
+                        ++p;
+                    }
+                    p += ByteOfSkip; // 跳過剩下的 Padding bytes
+                }
+            }
+
+            bimage.UnlockBits(bmData);
+            return bimage;
+        }
     }
 }
