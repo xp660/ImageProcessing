@@ -221,7 +221,7 @@ namespace ImageProcessing
             }
 
             bimage.UnlockBits(bmData);
-            return true;
+            return rgbData;
         }
 
 
@@ -236,8 +236,8 @@ namespace ImageProcessing
 
         public static Bitmap CreateBitmap(int[,,] rgbData)
         {
-            int Width = rgbData.Length(0);
-            int Height = rgbData.Length(1);
+            int Width = rgbData.GetLength(0);
+            int Height = rgbData.GetLength(1);
             Bitmap bimage = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
             
             // Step 1: 先鎖住存放圖片的記憶體

@@ -63,19 +63,40 @@ namespace ImageProcessing
         // 高效率影像處理 --  紅色濾鏡範例
         private void button4_Click(object sender, EventArgs e)
         {
-
+            if(CurrentImage != null)
+            {
+                ColoFilter(0);
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
+            }
         }
 
         // 高效率影像處理 --  綠色濾鏡範例
         private void button5_Click(object sender, EventArgs e)
         {
-
+            if (CurrentImage != null)
+            {
+                ColoFilter(1);
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
+            }
         }
 
         // 高效率影像處理範例 --  藍色濾鏡範例
         private void button6_Click(object sender, EventArgs e)
         {
-
+            if (CurrentImage != null)
+            {
+                ColoFilter(2);
+            }
+            else
+            {
+                MessageBox.Show("請先載入圖形");
+            }
         }
 
         // 高效率影像處理範例 --  增加亮度
@@ -93,12 +114,11 @@ namespace ImageProcessing
             // Step 2: 數位影像處理
             //  將所有顏色 Channel 資料改成 0, 只留下紅色區域
             int Width = rgbData.GetLength(0);
-            int Height = rgbData.GetLength(1);
-            int r;
+            int Height = rgbData.GetLength(1);           
 
-            for(int i = 0; i < Height; i++)
+            for(int y = 0; y < Height; y++)
             {
-                for(int j = 0; j < Width; j++)
+                for(int x = 0; x < Width; x++)
                 {
                     switch (select)
                     {
