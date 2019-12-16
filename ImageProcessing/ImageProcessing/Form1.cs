@@ -176,7 +176,6 @@ namespace ImageProcessing
             CurrentImage.setRGBData_unsafe(rgbData);
         }
 
-
-
+      
     }
 }
