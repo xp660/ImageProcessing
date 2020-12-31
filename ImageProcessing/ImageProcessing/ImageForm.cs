@@ -70,8 +70,8 @@ namespace ImageProcessing
                                         new Point(cx, cy/2),
                                         new Point(0, cy/2) });
             */
-            image.Save(@"C:\Users\xp660\Desktop\ImageProcessing\image.bmp", ImageFormat.Bmp);
-            image.Save(@"C:\Users\xp660\Desktop\ImageProcessing\image.gif", ImageFormat.Gif);
+            image.Save(@"K:\GITHUB\ImageProcessing\image.bmp", ImageFormat.Bmp);
+            image.Save(@"K:\GITHUB\ImageProcessing\image.gif", ImageFormat.Gif);
 
         }
 

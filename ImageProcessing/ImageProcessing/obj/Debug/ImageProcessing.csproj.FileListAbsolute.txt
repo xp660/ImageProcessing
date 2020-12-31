@@ -7,3 +7,13 @@ C:\Users\xp660\Desktop\ImageProcessing\ImageProcessing\ImageProcessing\bin\Debug
 C:\Users\xp660\Desktop\ImageProcessing\ImageProcessing\ImageProcessing\bin\Debug\ImageProcessing.pdb
 C:\Users\xp660\Desktop\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.exe
 C:\Users\xp660\Desktop\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.pdb
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\bin\Debug\ImageProcessing.exe.config
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\bin\Debug\ImageProcessing.exe
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\bin\Debug\ImageProcessing.pdb
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.csprojAssemblyReference.cache
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.Form1.resources
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.Properties.Resources.resources
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.csproj.GenerateResource.cache
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.csproj.CoreCompileInputs.cache
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.exe
+K:\GITHUB\ImageProcessing\ImageProcessing\ImageProcessing\obj\Debug\ImageProcessing.pdb
